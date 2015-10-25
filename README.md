@@ -1,7 +1,7 @@
 # JavaMicroUtils
 
-JavaMicroUtils is a tiny library with classes (micro-utils) designed each with a specific goal, usually some small helper methods that can save a few lines of boilerplates code.
-The library assists using some of the JDK core api's and [Guava](https://github.com/google/guava) api's.
+JavaMicroUtils is a tiny library with classes (micro-utils) designed each with a specific goal, usually some small helper methods that can save a few lines of boilerplates code.  
+The library assists using some of the JDK core api's and [Guava](https://github.com/google/guava) api's.  
 In Addition Java newcomers can learn some concepts and best practices from the source code of the JavaMicroUtils.
 
 ## Getting started
