@@ -11,7 +11,7 @@ TBD
 ## MicroUtils Overview
 
 * [FilesMu](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/FilesMu.java) - read/write operations on files
-* [ExceptionsMu](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/ExceptionsMu.java) - exceptions handling, or in other words helping the world salvation from check exceptions
+* [ExceptionsMu](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/ExceptionsMu.java) - exceptions handling, or in other words helping the world salvation from checked exceptions
 
 ## Major Dependencies
 
