@@ -1,16 +1,54 @@
+plugins {
+    id "com.jfrog.bintray" version "1.4"
+    id 'net.researchgate.release' version '2.3.0'
+}
+
 group 'MicroUtils'
-version '1.0-SNAPSHOT'
+version '1.1'
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
-
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 sourceCompatibility = 1.8
+
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     mavenCentral()
+    jcenter()
 
 }
+
+bintray {
+    user = 'oshai'
+    key = 'mykey'
+    publications = ['MyPublication']
+    pkg {
+        repo = 'JavaMicroUtils'
+        name = 'JavaMicroUtils'
+        userOrg = 'microutils'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/MicroUtils/JavaMicroUtils'
+        version {
+            name = '1.1-Final'
+            desc = 'JavaMicroUtils 1.1 final'
+            released  = new Date()
+        }
+    }
+}
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId 'microutils'
+            artifactId 'JavaMicroUtils'
+            version '1.1'
+        }
+    }
+}
+
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
