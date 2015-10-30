@@ -20,7 +20,7 @@ repositories {
     jcenter()
 
 }
-
+//https://github.com/bintray/gradle-bintray-plugin
 bintray {
     user = 'oshai'
     key = 'mykey'
