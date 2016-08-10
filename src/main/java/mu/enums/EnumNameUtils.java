@@ -61,7 +61,7 @@ public class EnumNameUtils {
     final Set<String> names = new HashSet<String>();
     for (INamedEnum e : set) {
       if (!names.add(e.getName())) {
-        throw new Error("Duplicate name in enum " + e.getName());
+        throw new IllegalArgumentException("Duplicate name in enum " + e.getName());
       }
     }
   }
