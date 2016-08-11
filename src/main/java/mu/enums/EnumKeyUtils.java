@@ -33,9 +33,7 @@ public class EnumKeyUtils {
    *
    * @param <K> the type of enum's key
    * @param <T> the type of enum.
-   * @param key
-   * @param set
-   * @return
+   * @return enum object from set or null if not found
    */
   public static <K, T extends Enum<T> & IUniqueKeyEnum<K>> T fromKey(K key, Set<T> set) {
     for (T e : set) {

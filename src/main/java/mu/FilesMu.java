@@ -16,9 +16,6 @@ public class FilesMu {
 
   /**
    * write content to file with default charset, omitting the previous content if any
-   *
-   * @param contentToWrite
-   * @param fileName
    */
   public static void writeFile(String contentToWrite, String fileName) {
     Preconditions.checkNotNull(contentToWrite);
@@ -32,8 +29,6 @@ public class FilesMu {
 
   /**
    * read file content with default charset
-   *
-   * @param fileName
    * @return list of lines of the content
    */
   public static List<String> readFile(String fileName) {

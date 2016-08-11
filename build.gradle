@@ -1,6 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
 plugins {
-    id "com.jfrog.bintray" version "1.4"
-    id 'net.researchgate.release' version '2.3.0'
+    id "com.jfrog.bintray" version "1.7"
 }
 
 group 'MicroUtils'
@@ -12,14 +18,17 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 sourceCompatibility = 1.8
 
-
-
-// In this section you declare where to find the dependencies of your project
 repositories {
     mavenCentral()
     jcenter()
-
 }
+
+dependencies {
+    compile "com.google.guava:guava:18.0"
+    compile "com.google.code.findbugs:jsr305:3.0.1"
+    testCompile 'junit:junit:4.12'
+}
+
 //https://github.com/bintray/gradle-bintray-plugin
 bintray {
     user = 'oshai'
@@ -32,12 +41,29 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/MicroUtils/JavaMicroUtils'
         version {
-            name = '1.1-Final'
-            desc = 'JavaMicroUtils 1.1 final'
+            name = '1.1'
+            desc = 'JavaMicroUtils 1.1'
             released  = new Date()
         }
     }
 }
+
+// custom tasks for creating source/javadoc jars
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
@@ -45,17 +71,10 @@ publishing {
             groupId 'microutils'
             artifactId 'JavaMicroUtils'
             version '1.1'
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
 
 
-// In this section you declare the dependencies for your production and test code
-dependencies {
-
-    compile group: 'com.google.guava', name: 'guava', version: '18.0'
-    compile 'com.google.code.findbugs:jsr305:3.0.1'
-
-
-    testCompile 'junit:junit:4.12'
-}

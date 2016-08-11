@@ -26,7 +26,7 @@ public class ExceptionsMu {
    * }
    * </code>
    *
-   * @param t
+   * @param t the throwable
    * @return the <code>t</code> parameter if it is not a checked exception,
    * otherwise a <code>RuntimeException</code> with <code>t</code> as its cause
    */
@@ -48,7 +48,7 @@ public class ExceptionsMu {
   }
 
   /**
-   * @param t
+   * @param t the throwable
    * @return The root cause exception
    */
   public static Throwable getRootCause(@Nonnull Throwable t) {
