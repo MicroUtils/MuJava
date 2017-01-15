@@ -32,10 +32,10 @@ dependencies {
 //https://github.com/bintray/gradle-bintray-plugin
 bintray {
     user = 'oshai'
-    key = 'mykey'
+    key = 'my_key'
     publications = ['MyPublication']
     pkg {
-        repo = 'MuJava'
+        repo = 'mujava'
         name = 'MuJava'
         userOrg = 'microutils'
         licenses = ['Apache-2.0']
