@@ -1,12 +1,11 @@
 package mu;
 
+import mu.exceptions.InterruptedError;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-
-import static org.junit.Assert.*;
 
 public class ExceptionsMuTest {
 
@@ -24,6 +23,17 @@ public class ExceptionsMuTest {
   @Test
   public void testAsUncheckedIO() throws Exception {
     Assert.assertTrue(ExceptionsMu.asUnchecked(new IOException()) instanceof UncheckedIOException);
+  }
+
+  @Test
+  public void testAsUncheckedInterrupted() throws Exception {
+    Thread.interrupted(); //clean interrupt flag
+    try {
+      ExceptionsMu.asUnchecked(new InterruptedException());
+      Assert.fail("we expect InterruptedError to be thrown and interrupted=true");
+    } catch (InterruptedError e) {
+      Assert.assertTrue(Thread.interrupted());
+    }
   }
 
   @Test(expected = Error.class)
