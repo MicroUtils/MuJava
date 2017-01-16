@@ -1,6 +1,8 @@
 package mu;
 
 
+import mu.exceptions.InterruptedError;
+
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +44,10 @@ public class ExceptionsMu {
 
     if (t instanceof IOException) {
       return new UncheckedIOException((IOException) t);
+    }
+    if (t instanceof InterruptedException) {
+      Thread.currentThread().interrupt();
+      throw new InterruptedError((InterruptedException)t);
     }
     return new RuntimeException(t);
 
