@@ -1,4 +1,4 @@
-# MuJava [ ![Download](https://api.bintray.com/packages/microutils/MuJava/mujava/images/download.svg) ](https://bintray.com/microutils/MuJava/mujava/_latestVersion)
+# MuJava [ ![Download](https://api.bintray.com/packages/microutils/mujava/MuJava/images/download.svg) ](https://bintray.com/microutils/mujava/MuJava/_latestVersion)
 
 MuJava is a tiny library with classes (micro-utils) designed each with a specific goal, usually some small helper methods that can save a few lines of boilerplates code.  
 The library assists using some of the JDK core api's and [Guava](https://github.com/google/guava) api's.  
