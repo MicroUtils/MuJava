@@ -1,6 +1,9 @@
 package mu;
 
 
+import mu.exceptions.GeneralThrowableError;
+import mu.exceptions.InterruptedError;
+
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,14 +40,26 @@ public class ExceptionsMu {
     if (t instanceof Error) {
       throw (Error) t;
     }
-
-    //checked exception
-
-    if (t instanceof IOException) {
-      return new UncheckedIOException((IOException) t);
+    if (t instanceof Exception) {//checked exception
+      if (t instanceof IOException) {
+        return new UncheckedIOException((IOException) t);
+      }
+      if (t instanceof InterruptedException) {
+        throw handleInterruptedException((InterruptedException) t);
+      }
     }
-    return new RuntimeException(t);
+    throw new GeneralThrowableError(t);
+  }
 
+  /**
+   * <code>InterruptedException</code> signals the thread that it should stop
+   * so the best approach is to treat it like an <code>Error</code> and try to shutdown the thread gracefully
+   * The methods sets back interrupted flag and throw an error wrapping the original <code>InterruptedException</code>
+   * @return InterruptedError wrapping the checked InterruptedException
+   */
+  public static InterruptedError handleInterruptedException(@Nonnull InterruptedException e) {
+    Thread.currentThread().interrupt();
+    return new InterruptedError(e);
   }
 
   /**
@@ -69,4 +84,6 @@ public class ExceptionsMu {
   public static String getRootCauseMessage(@Nonnull Throwable t) {
     return getRootCause(t).getMessage();
   }
+
+
 }

@@ -1,5 +1,7 @@
 package mu;
 
+import mu.exceptions.GeneralThrowableError;
+import mu.exceptions.InterruptedError;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,9 +18,19 @@ public class ExceptionsMuTest {
     Assert.assertEquals(e, ExceptionsMu.asUnchecked(e));
   }
 
-  @Test
+  @Test(expected = GeneralThrowableError.class)
   public void testAsUncheckedThrowable() throws Exception {
     Assert.assertTrue(ExceptionsMu.asUnchecked(new Throwable()) instanceof RuntimeException);
+  }
+  @Test(expected = InterruptedError.class)
+  public void testAsUncheckedInterruptedException() throws Exception {
+    ExceptionsMu.asUnchecked(new InterruptedException());
+  }
+  @Test
+  public void testInterruptedExceptionHandling() throws Exception {
+    Thread.currentThread().isInterrupted();
+    Assert.assertTrue(ExceptionsMu.handleInterruptedException(new InterruptedException()) instanceof InterruptedError) ;
+    Assert.assertTrue(Thread.currentThread().isInterrupted());
   }
 
   @Test
