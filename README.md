@@ -8,20 +8,11 @@ In Addition Java newcomers can learn some concepts and best practices from the s
 
 ### Maven
 ```xml
-<dependencies>
  <dependency>
    <groupId>io.github.microutils</groupId>
    <artifactId>mujava</artifactId>
    <version>1.2.1</version>
  </dependency>
-</dependencies>
-<repositories>
-  <repository>
-    <id>central</id>
-    <name>bintray</name>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
-</repositories>
 ```
 
 ### Gradle
