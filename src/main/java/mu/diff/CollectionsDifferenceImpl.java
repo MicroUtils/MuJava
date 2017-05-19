@@ -59,4 +59,8 @@ public class CollectionsDifferenceImpl<L, R> {
   public int hashCode() {
     return Objects.hash(itemsOnlyOnLeft, itemsOnlyOnRight, itemsOnBothWithExactMatch, itemsOnBothWithPartialMatch);
   }
+
+  public boolean isEquals() {
+    return itemsOnlyOnLeft().isEmpty() && itemsOnBothWithPartialMatch().isEmpty() && itemsOnlyOnRight().isEmpty();
+  }
 }

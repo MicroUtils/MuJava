@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("unchecked")
 public class CollectionsDifferenceTest {
@@ -18,6 +20,7 @@ public class CollectionsDifferenceTest {
     assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithExactMatch());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithPartialMatch());
+    assertTrue(diffResult.isEquals());
   }
 
   @Test
@@ -27,6 +30,7 @@ public class CollectionsDifferenceTest {
     assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithExactMatch());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithPartialMatch());
+    assertFalse(diffResult.isEquals());
   }
 
   @Test
@@ -36,6 +40,7 @@ public class CollectionsDifferenceTest {
     assertEquals(Lists.newArrayList(1), diffResult.itemsOnlyOnRight());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithExactMatch());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithPartialMatch());
+    assertFalse(diffResult.isEquals());
   }
 
   @Test
@@ -45,6 +50,7 @@ public class CollectionsDifferenceTest {
     assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
     assertEquals(Lists.newArrayList(new ItemDifference[]{new ItemDifference<>(1, 1)}), diffResult.itemsOnBothWithExactMatch());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithPartialMatch());
+    assertTrue(diffResult.isEquals());
   }
 
   @Test
@@ -54,6 +60,7 @@ public class CollectionsDifferenceTest {
     assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
     assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithExactMatch());
     assertEquals(Lists.newArrayList(new ItemDifference<>(1, 3)), diffResult.itemsOnBothWithPartialMatch());
+    assertFalse(diffResult.isEquals());
   }
 
   @Test
