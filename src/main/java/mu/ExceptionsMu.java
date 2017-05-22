@@ -33,7 +33,7 @@ public class ExceptionsMu {
    * @return the <code>t</code> parameter if it is not a checked exception,
    * otherwise a <code>RuntimeException</code> with <code>t</code> as its cause
    */
-  public static RuntimeException asUnchecked(@Nonnull Throwable t) {
+  public static RuntimeException asUnchecked(Throwable t) {
     if (t instanceof RuntimeException) {
       return (RuntimeException) t;
     }
@@ -80,7 +80,7 @@ public class ExceptionsMu {
    * The methods sets back interrupted flag and return an error wrapping the original <code>InterruptedException</code> that should be thrown
    * @return InterruptedError wrapping the checked InterruptedException
    */
-  public static InterruptedError handleInterruptedException(@Nonnull InterruptedException e) {
+  public static InterruptedError handleInterruptedException(InterruptedException e) {
     Thread.currentThread().interrupt();
     return new InterruptedError(e);
   }
@@ -89,7 +89,7 @@ public class ExceptionsMu {
    * @param t the throwable
    * @return The root cause exception
    */
-  public static Throwable getRootCause(@Nonnull Throwable t) {
+  public static Throwable getRootCause(Throwable t) {
     Throwable $ = t;
     while ($.getCause() != null && $.getCause() != $) {
       $ = $.getCause();
@@ -97,14 +97,14 @@ public class ExceptionsMu {
     return $;
   }
 
-  public static String getStackTrace(@Nonnull Throwable t) {
+  public static String getStackTrace(Throwable t) {
     StringWriter sw = new StringWriter();
     PrintWriter pw = new PrintWriter(sw);
     t.printStackTrace(pw);
     return sw.toString();
   }
 
-  public static String getRootCauseMessage(@Nonnull Throwable t) {
+  public static String getRootCauseMessage(Throwable t) {
     return getRootCause(t).getMessage();
   }
 
