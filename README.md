@@ -11,14 +11,16 @@ In Addition Java newcomers can learn some concepts and best practices from the s
  <dependency>
    <groupId>io.github.microutils</groupId>
    <artifactId>mujava</artifactId>
-   <version>1.2.1</version>
+   <version>1.2.5</version>
  </dependency>
 ```
 
 ### Gradle
 ```Groovy
-compile 'io.github.microutils:mujava:1.2.1'
+compile 'io.github.microutils:mujava:1.2.5'
 ```
+
+Note: make sure you have jcenter configured as repository
 
 ## MicroUtils Overview
 
@@ -26,6 +28,7 @@ compile 'io.github.microutils:mujava:1.2.1'
 * [ExceptionsMu](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/ExceptionsMu.java) - exceptions handling, or in other words helping the world salvation from checked exceptions
 * [EnumKeyUtils](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/enums/EnumKeyUtils.java) - functions to help working with enums with indexes
 * [EnumNameUtils](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/enums/EnumNameUtils.java) - functions to help working with enums with names
+* [CollectionsDifference](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/diff/CollectionsDifference.java) - compare two collections and compute items difference
 
 ## Major Dependencies
 
