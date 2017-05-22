@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
+import static mu.ExceptionsMu.asUnchecked;
 import static org.junit.Assert.*;
 
 public class ExceptionsMuTest {
@@ -15,33 +16,38 @@ public class ExceptionsMuTest {
   @Test
   public void testAsUncheckedRuntimeException() throws Exception {
     final RuntimeException e = new RuntimeException();
-    Assert.assertEquals(e, ExceptionsMu.asUnchecked(e));
+    Assert.assertEquals(e, asUnchecked(e));
   }
 
   @Test(expected = GeneralThrowableError.class)
   public void testAsUncheckedThrowable() throws Exception {
-    Assert.assertTrue(ExceptionsMu.asUnchecked(new Throwable()) instanceof RuntimeException);
+    assertTrue(asUnchecked(new Throwable()) instanceof RuntimeException);
   }
   @Test(expected = InterruptedError.class)
   public void testAsUncheckedInterruptedException() throws Exception {
-    ExceptionsMu.asUnchecked(new InterruptedException());
+    asUnchecked(new InterruptedException());
   }
   @Test
   public void testInterruptedExceptionHandling() throws Exception {
     Thread.currentThread().isInterrupted();
-    Assert.assertTrue(ExceptionsMu.handleInterruptedException(new InterruptedException()) instanceof InterruptedError) ;
-    Assert.assertTrue(Thread.currentThread().isInterrupted());
+    assertTrue(ExceptionsMu.handleInterruptedException(new InterruptedException()) instanceof InterruptedError) ;
+    assertTrue(Thread.currentThread().isInterrupted());
+  }
+
+  @Test(expected = GeneralThrowableError.class)
+  public void testAsUncheckedFunctional() {
+    asUnchecked(() -> {throw new Exception();});
   }
 
   @Test
   public void testAsUncheckedIO() throws Exception {
-    Assert.assertTrue(ExceptionsMu.asUnchecked(new IOException()) instanceof UncheckedIOException);
+    assertTrue(asUnchecked(new IOException()) instanceof UncheckedIOException);
   }
 
   @Test(expected = Error.class)
   public void testAsUncheckedError() throws Exception {
     final Error e = new Error();
-    ExceptionsMu.asUnchecked(e);
+    asUnchecked(e);
   }
 
   @Test

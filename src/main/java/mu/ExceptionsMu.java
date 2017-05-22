@@ -51,10 +51,33 @@ public class ExceptionsMu {
     throw new GeneralThrowableError(t);
   }
 
+  public interface NonCheckedExecutable<T> {
+    T execute() throws Exception;
+  }
+
+  /**
+   * wrap a method invocation with a try/catch clause wrapping checked exception with unchecked
+   * example of usage:
+   * <code>
+   * asUnchecked(() -> {doSomething();});
+   * </code>
+   *
+   * @param executable
+   * @param <T>
+   * @return
+   */
+  public static <T> T asUnchecked(NonCheckedExecutable<T> executable) {
+    try {
+      return executable.execute();
+    } catch (Exception e) {
+      throw asUnchecked(e);
+    }
+  }
+
   /**
    * <code>InterruptedException</code> signals the thread that it should stop
    * so the best approach is to treat it like an <code>Error</code> and try to shutdown the thread gracefully
-   * The methods sets back interrupted flag and throw an error wrapping the original <code>InterruptedException</code>
+   * The methods sets back interrupted flag and return an error wrapping the original <code>InterruptedException</code> that should be thrown
    * @return InterruptedError wrapping the checked InterruptedException
    */
   public static InterruptedError handleInterruptedException(@Nonnull InterruptedException e) {
