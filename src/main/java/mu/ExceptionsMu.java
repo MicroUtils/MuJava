@@ -58,13 +58,11 @@ public class ExceptionsMu {
   /**
    * wrap a method invocation with a try/catch clause wrapping checked exception with unchecked
    * example of usage:
-   * <code>
-   * asUnchecked(() -> {doSomething();});
-   * </code>
+   * <code>asUnchecked(() -&gt; {doSomething();});</code>
    *
-   * @param executable
-   * @param <T>
-   * @return
+   * @param executable the method to execute
+   * @param <T> type of return value
+   * @return value returned from NonCheckedExecutable.execute()
    */
   public static <T> T asUnchecked(NonCheckedExecutable<T> executable) {
     try {
