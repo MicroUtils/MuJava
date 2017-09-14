@@ -3,8 +3,8 @@ package mu;
 
 import mu.exceptions.GeneralThrowableError;
 import mu.exceptions.InterruptedError;
+import mu.exceptions.UncheckedException;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -47,12 +47,13 @@ public class ExceptionsMu {
       if (t instanceof InterruptedException) {
         throw handleInterruptedException((InterruptedException) t);
       }
+      throw new UncheckedException(t);
     }
     throw new GeneralThrowableError(t);
   }
 
   public interface NonCheckedExecutable<T> {
-    T execute() throws Exception;
+    T execute() throws Throwable;
   }
 
   /**
@@ -67,7 +68,7 @@ public class ExceptionsMu {
   public static <T> T asUnchecked(NonCheckedExecutable<T> executable) {
     try {
       return executable.execute();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       throw asUnchecked(e);
     }
   }

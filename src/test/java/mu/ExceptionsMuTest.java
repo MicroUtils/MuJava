@@ -2,6 +2,7 @@ package mu;
 
 import mu.exceptions.GeneralThrowableError;
 import mu.exceptions.InterruptedError;
+import mu.exceptions.UncheckedException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,6 +28,12 @@ public class ExceptionsMuTest {
   public void testAsUncheckedInterruptedException() throws Exception {
     asUnchecked(new InterruptedException());
   }
+
+  @Test(expected = UncheckedException.class)
+  public void testAsUncheckedException() throws Exception {
+    asUnchecked(new Exception());
+  }
+
   @Test
   public void testInterruptedExceptionHandling() throws Exception {
     Thread.currentThread().isInterrupted();
@@ -36,7 +43,7 @@ public class ExceptionsMuTest {
 
   @Test(expected = GeneralThrowableError.class)
   public void testAsUncheckedFunctional() {
-    asUnchecked(() -> {throw new Exception();});
+    asUnchecked(() -> {throw new Throwable();});
   }
 
   @Test
