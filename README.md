@@ -11,13 +11,13 @@ In Addition Java newcomers can learn some concepts and best practices from the s
  <dependency>
    <groupId>io.github.microutils</groupId>
    <artifactId>mujava</artifactId>
-   <version>1.2.5</version>
+   <version>1.2.6</version>
  </dependency>
 ```
 
 ### Gradle
 ```Groovy
-compile 'io.github.microutils:mujava:1.2.5'
+compile 'io.github.microutils:mujava:1.2.6'
 ```
 
 Note: make sure you have jcenter configured as repository
