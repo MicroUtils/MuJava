@@ -11,13 +11,13 @@ In Addition Java newcomers can learn some concepts and best practices from the s
  <dependency>
    <groupId>io.github.microutils</groupId>
    <artifactId>mujava</artifactId>
-   <version>1.2.6</version>
+   <version>1.2.7</version>
  </dependency>
 ```
 
 ### Gradle
 ```Groovy
-compile 'io.github.microutils:mujava:1.2.6'
+compile 'io.github.microutils:mujava:1.2.7'
 ```
 
 Note: make sure you have jcenter configured as repository
@@ -29,6 +29,7 @@ Note: make sure you have jcenter configured as repository
 * [EnumKeyUtils](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/enums/EnumKeyUtils.java) - functions to help working with enums with indexes
 * [EnumNameUtils](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/enums/EnumNameUtils.java) - functions to help working with enums with names
 * [CollectionsDifference](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/diff/CollectionsDifference.java) - compare two collections and compute items difference
+* [ThreadsMu](https://github.com/MicroUtils/JavaMicroUtils/blob/master/src/main/java/mu/ThreadsMu.java) - threads and thread pools related utils
 
 ## Major Dependencies
 
