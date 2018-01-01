@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -29,6 +30,9 @@ public class CollectionsDifference {
     public static class Partial implements ItemMatch {
       private final int rank;
 
+      public Partial() {
+        this(0);
+      }
       public Partial(int rank) {
         this.rank = rank;
       }
@@ -42,6 +46,20 @@ public class CollectionsDifference {
         return MoreObjects.toStringHelper(this)
           .add("rank", rank)
           .toString();
+      }
+
+      @Override
+      public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Partial partial = (Partial) o;
+        return rank == partial.rank;
+      }
+
+      @Override
+      public int hashCode() {
+
+        return Objects.hash(rank);
       }
     }
   }
