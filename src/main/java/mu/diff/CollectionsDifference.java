@@ -1,5 +1,6 @@
 package mu.diff;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 
 import java.util.Collection;
@@ -18,11 +19,33 @@ import java.util.Optional;
  */
 public class CollectionsDifference {
 
-  public enum ItemMatch {
-    Exact,
-    Partial,
-    None
+  public interface ItemMatch {}
+  public static class ItemMatchers {
+    public static final ItemMatch Exact = new ItemMatchers.Exact();
+    public static final ItemMatch None = new ItemMatchers.None();
+
+    public static class Exact implements ItemMatch {}
+    public static class None implements ItemMatch {}
+    public static class Partial implements ItemMatch {
+      private final int rank;
+
+      public Partial(int rank) {
+        this.rank = rank;
+      }
+
+      public int getRank() {
+        return rank;
+      }
+
+      @Override
+      public String toString() {
+        return MoreObjects.toStringHelper(this)
+          .add("rank", rank)
+          .toString();
+      }
+    }
   }
+
 
   public interface ItemMatcher<L, R> {
     ItemMatch match(L left, R right);
@@ -41,7 +64,7 @@ public class CollectionsDifference {
     List<L> itemsToProcessOnLeft = Lists.newArrayList(left);
     List<R> itemsToProcessOnRight = Lists.newArrayList(right);
     for (L leftItem : Lists.newArrayList(left)) {
-      Optional<R> rightItem = getItemByMatch(leftItem, right, matcher, ItemMatch.Exact);
+      Optional<R> rightItem = getItemByExactMatch(leftItem, right, matcher);
       if (rightItem.isPresent()) {
         itemsToProcessOnLeft.remove(leftItem);
         itemsToProcessOnRight.remove(rightItem.get());
@@ -49,7 +72,7 @@ public class CollectionsDifference {
       }
     }
     for (L leftItem : Lists.newArrayList(itemsToProcessOnLeft)) {
-      Optional<R> rightItem = getItemByMatch(leftItem, itemsToProcessOnRight, matcher, ItemMatch.Partial);
+      Optional<R> rightItem = getItemByPartialMatch(leftItem, itemsToProcessOnRight, matcher);
       if (rightItem.isPresent()) {
           itemsToProcessOnLeft.remove(leftItem);
           itemsToProcessOnRight.remove(rightItem.get());
@@ -60,13 +83,25 @@ public class CollectionsDifference {
     itemsOnlyOnRight.addAll(itemsToProcessOnRight);
   }
 
-  private static <R, L> Optional<R> getItemByMatch(L item, Collection<R> collection, ItemMatcher<L, R> matcher, ItemMatch matchType) {
+  private static <R, L> Optional<R> getItemByExactMatch(L item, Collection<R> collection, ItemMatcher<L, R> matcher) {
     for (R itemToCompare : collection) {
-      if (matcher.match(item, itemToCompare) == matchType) {
+      if (matcher.match(item, itemToCompare) == ItemMatchers.Exact) {
         return Optional.of(itemToCompare);
       }
     }
     return Optional.empty();
+  }
+  private static <R, L> Optional<R> getItemByPartialMatch(L item, Collection<R> collection, ItemMatcher<L, R> matcher) {
+    int maxRank = Integer.MIN_VALUE;
+    Optional<R> selectedItem = Optional.empty();
+    for (R itemToCompare : collection) {
+      ItemMatch matchResult = matcher.match(item, itemToCompare);
+      if (matchResult instanceof ItemMatchers.Partial && ((ItemMatchers.Partial) matchResult).getRank() > maxRank) {
+        maxRank = ((ItemMatchers.Partial) matchResult).getRank();
+        selectedItem = Optional.of(itemToCompare);
+      }
+    }
+    return selectedItem;
   }
 
 }

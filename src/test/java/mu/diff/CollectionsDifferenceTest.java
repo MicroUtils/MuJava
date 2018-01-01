@@ -6,9 +6,7 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @SuppressWarnings("unchecked")
 public class CollectionsDifferenceTest {
@@ -105,17 +103,27 @@ public class CollectionsDifferenceTest {
     assertEquals(Lists.newArrayList(new ItemDifference<>(1, 5), new ItemDifference<>(3, 7)),
       diffResult.itemsOnBothWithPartialMatch());
   }
+  @Test
+  public void testWithPartialMatchInMoreThanOneItemReturnMaxRank() {
+    CollectionsDifferenceImpl<Integer, Integer> diffResult = CollectionsDifference.difference(
+      Lists.newArrayList(7, 5), Lists.newArrayList(3, 1), intParityMatcher);
+    assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnLeft());
+    assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
+    assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithExactMatch());
+    assertEquals(Lists.newArrayList(new ItemDifference<>(7, 1), new ItemDifference<>(5, 3)),
+      diffResult.itemsOnBothWithPartialMatch());
+  }
 
   /**
    * this function match exact on same number and partial on even/odd match
    */
   private CollectionsDifference.ItemMatcher<Integer, Integer> intParityMatcher = (left, right) -> {
     if (Objects.equals(left, right)) {
-      return CollectionsDifference.ItemMatch.Exact;
+      return CollectionsDifference.ItemMatchers.Exact;
     } else if (left % 2 == right % 2) {
-      return CollectionsDifference.ItemMatch.Partial;
+      return new CollectionsDifference.ItemMatchers.Partial(left - right);
     } else {
-      return CollectionsDifference.ItemMatch.None;
+      return CollectionsDifference.ItemMatchers.None;
     }
   };
 
