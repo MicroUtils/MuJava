@@ -82,7 +82,7 @@ public class CollectionsDifference {
     List<L> itemsToProcessOnLeft = Lists.newArrayList(left);
     List<R> itemsToProcessOnRight = Lists.newArrayList(right);
     for (L leftItem : Lists.newArrayList(left)) {
-      Optional<R> rightItem = getItemByExactMatch(leftItem, right, matcher);
+      Optional<R> rightItem = getItemByExactMatch(leftItem, itemsToProcessOnRight, matcher);
       if (rightItem.isPresent()) {
         itemsToProcessOnLeft.remove(leftItem);
         itemsToProcessOnRight.remove(rightItem.get());

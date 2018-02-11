@@ -113,6 +113,15 @@ public class CollectionsDifferenceTest {
     assertEquals(Lists.newArrayList(new ItemDifference<>(7, 1), new ItemDifference<>(5, 3)),
       diffResult.itemsOnBothWithPartialMatch());
   }
+  @Test
+  public void testWithExactMatchInMoreThanOneItemInRightShouldReturnOne() {
+    CollectionsDifferenceImpl<Integer, Integer> diffResult = CollectionsDifference.difference(
+      Lists.newArrayList(1, 1), Lists.newArrayList(1), intParityMatcher);
+    assertEquals(Lists.newArrayList(new ItemDifference<>(1, 1)), diffResult.itemsOnBothWithExactMatch());
+    assertEquals(Lists.newArrayList(1), diffResult.itemsOnlyOnLeft());
+    assertEquals(Collections.emptyList(), diffResult.itemsOnlyOnRight());
+    assertEquals(Collections.emptyList(), diffResult.itemsOnBothWithPartialMatch());
+  }
 
   /**
    * this function match exact on same number and partial on even/odd match
